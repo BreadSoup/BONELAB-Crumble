@@ -11,8 +11,8 @@ namespace bonelab_template
         PhysGrounder feet = null;
         bool PreviousFrame;
         bool CurrentFrame;
-        float Threshold = 5;
-        float Markiplier = 1.3f; //https://shorturl.at/opMO3
+        float Threshold = 7;
+        float Markiplier = 1.5f; //https://shorturl.at/opMO3
 
         public override void OnEarlyInitializeMelon()
         {
@@ -23,6 +23,7 @@ namespace bonelab_template
         public override void OnInitializeMelon()
         {
             BoneLib.Hooking.OnLevelInitialized += (_) => { OnSceneAwake(); };
+            bonelab_template.Preferences.BonemenuCreator();
         }
 
         public void OnSceneAwake()
@@ -51,6 +52,7 @@ namespace bonelab_template
                         float damage = Mathf.Abs(BoneLib.Player.physicsRig.wholeBodyVelocity.y + Threshold);
                         damage *= Markiplier; // I might be able to put this on the line above but I don't know the order of operations and I dont care enough to find out because this works
                         Player.rigManager.health.TAKEDAMAGE(damage);
+                        BoneLib.Player.physicsRig.RagdollRig();
                     }
                 }
 
