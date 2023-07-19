@@ -14,6 +14,9 @@ namespace bonelab_template
         float Threshold = 7;
         float Markiplier = 1.5f; //https://shorturl.at/opMO3
 
+        float ThresholdDefault = 7;
+        float MarkiplierDefault = 1.5f;
+
         public override void OnEarlyInitializeMelon()
         {
             base.OnEarlyInitializeMelon();

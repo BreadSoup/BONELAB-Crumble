@@ -15,7 +15,7 @@ namespace bonelab_template
         public static void BonemenuCreator()
         {
             var category = MenuManager.CreateCategory(
-                "<color=#FF0000>c</color>" +
+                "<color=#FF0000>C</color>" +
                 "<color=#FF2900>r</color>" +
                 "<color=#FF5200>u</color>" +
                 "<color=#FF7B00>m</color>" +
