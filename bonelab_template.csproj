@@ -6,8 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{0DEB755F-D57A-4285-9D70-C592E340CDB4}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <RootNamespace>bonelab_template</RootNamespace>
-    <AssemblyName>bonelab_template</AssemblyName>
+    <RootNamespace>Crumble</RootNamespace>
+    <AssemblyName>Crumble</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
