@@ -11,6 +11,8 @@ namespace Crumble
         PhysGrounder feet = null;
         bool SceneLoaded = false;
         bool HasRagdolledFromCrumble = false;
+        bool PreviousRagdollState;
+        bool CurrentRagdollState;
         bool PreviousFrame;
         bool CurrentFrame;
         public static float Threshold = 7;
@@ -33,6 +35,7 @@ namespace Crumble
         { 
             SceneLoaded = true;
             feet = BoneLib.Player.physicsRig.feet.GetComponent<PhysGrounder>();
+            PreviousRagdollState = Player.physicsRig._legsKinematic;
             PreviousFrame = feet.isGrounded;
         }
 
@@ -49,10 +52,23 @@ namespace Crumble
                         Player.physicsRig.UnRagdollRig();
                     }
 
-                    if (HasRagdolledFromCrumble) //this will be a check to stop damage before landing from ragdoll
-                    {
+                    //raycasts my beloved
+                    //ill add the ray cast later
 
+                    if (HasRagdolledFromCrumble && Player.physicsRig._legsKinematic) //Just so I dont mess with other mods that ragdoll might not be needed but better to be safe
+                    {
+                        HasRagdolledFromCrumble = false;
                     }
+
+                    CurrentRagdollState = Player.physicsRig._legsKinematic;
+
+                    if (!PreviousRagdollState && CurrentRagdollState)
+                    {
+                        BoneLib.Player.physicsRig.wholeBodyVelocity.Set(0,-10,0);
+                        MelonLoader.MelonLogger.Log("rghdeunio");
+                    }
+
+                    PreviousRagdollState = CurrentRagdollState;
                     
                     CurrentFrame = feet.isGrounded;
 
