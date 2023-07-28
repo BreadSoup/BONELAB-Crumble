@@ -18,9 +18,8 @@ namespace Crumble
         public static float Threshold = 7;
         public static float Markiplier = 1.5f; //https://shorturl.at/opMO3
         public static float RagdollHealthPercentage = 25;
+        public static Vector3 Add = new Vector3(0f, 0.25f, 0f);
 
-        float ThresholdDefault = 7;
-        float MarkiplierDefault = 1.5f;
 
 
 
@@ -52,20 +51,16 @@ namespace Crumble
                         Player.physicsRig.UnRagdollRig();
                     }
 
-                    //raycasts my beloved
-                    //ill add the ray cast later
-
                     if (HasRagdolledFromCrumble && Player.physicsRig._legsKinematic) //Just so I dont mess with other mods that ragdoll might not be needed but better to be safe
                     {
                         HasRagdolledFromCrumble = false;
                     }
 
                     CurrentRagdollState = Player.physicsRig._legsKinematic;
-
-                    if (!PreviousRagdollState && CurrentRagdollState)
+                    if (!PreviousRagdollState && CurrentRagdollState && Preferences.RagdollFlingingFix)
                     {
-                        BoneLib.Player.physicsRig.wholeBodyVelocity.Set(0,-10,0);
-                        MelonLoader.MelonLogger.Log("rghdeunio");
+                            Vector3 Teleport = BoneLib.Player.physicsRig.feet.transform.position + Add;
+                            BoneLib.Player.rigManager.Teleport(Teleport, true);
                     }
 
                     PreviousRagdollState = CurrentRagdollState;
@@ -80,7 +75,7 @@ namespace Crumble
                             damage *= Markiplier; // I might be able to put this on the line above but I don't know the order of operations and I dont care enough to find out because this works
                             Player.rigManager.health.TAKEDAMAGE(damage);
                             float HealthPercentage = (Player.rigManager.health.curr_Health / Player.rigManager.health.max_Health) * 100;
-                            if (HealthPercentage <= RagdollHealthPercentage)
+                            if (HealthPercentage <= RagdollHealthPercentage && Preferences.RagdollFromFallDamage)
                             {
                               BoneLib.Player.physicsRig.RagdollRig(); 
                               HasRagdolledFromCrumble = true;
