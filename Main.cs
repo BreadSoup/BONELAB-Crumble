@@ -18,7 +18,7 @@ namespace Crumble
         public static float Threshold = 7;
         public static float Markiplier = 1.5f; //https://shorturl.at/opMO3
         public static float RagdollHealthPercentage = 25;
-        public static Vector3 Add = new Vector3(0f, 0.25f, 0f);
+        public static Vector3 Add = new Vector3(0f, 0.5f, 0f);
 
 
 
