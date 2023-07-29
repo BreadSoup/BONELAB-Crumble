@@ -50,26 +50,29 @@ namespace Crumble
                 "<color=#ff3a2e>l</color>" +
                 "<color=#ff3e30>e</color>"
                 , Color.white);
-            category.CreateBoolElement("Mod Toggle", Color.yellow, IsEnabled, new Action<bool>(OnSetEnabled));
-            var DamageThreshold = category.CreateFloatElement("Damage Threshold", Color.red, Main.Threshold, 1f, 0f, 100f, (dt) =>
+            category.CreateBoolElement("Mod Toggle", "#FF5E00", IsEnabled, new Action<bool>(OnSetEnabled));
+            var DamageThreshold = category.CreateFloatElement("Damage Threshold", "#FC221b", Main.Threshold, 1f, 0f, 100f, (dt) =>
             {
                 Main.Threshold = dt;
                 MelonPrefDamageThreshold.Value = dt;
+                MelonPrefCategory.SaveToFile(false);
             });
 
-            var DamageMultiplier = category.CreateFloatElement("Damage Multiplier", Color.red, Main.Markiplier, 0.1f, 0f, 100f, (dm) =>
+            var DamageMultiplier = category.CreateFloatElement("Damage Multiplier", "#FC221b", Main.Markiplier, 0.1f, 0f, 100f, (dm) =>
             {
               Main.Markiplier = dm;
-                MelonPrefDamageMutiplier.Value = dm;
+              MelonPrefDamageMutiplier.Value = dm;
+              MelonPrefCategory.SaveToFile(false);
             });
-            var RagdollHealthPercentage = category.CreateFloatElement("Ragdoll Percentage", Color.red, Main.RagdollHealthPercentage, 5f, 0f, 100f, (rp) =>
+            var RagdollHealthPercentage = category.CreateFloatElement("Ragdoll Percentage", Color.yellow, Main.RagdollHealthPercentage, 5f, 0f, 100f, (rp) =>
             {
                 Main.RagdollHealthPercentage = rp;
                 MelonPrefRagdollPercentage.Value = rp;
+                MelonPrefCategory.SaveToFile(false);
             });
             
-            category.CreateBoolElement("Ragdoll From Fall Damage", Color.red, RagdollFromFallDamage, new Action<bool>(OnRagdollFromFallDamage));
-            category.CreateBoolElement("Ragdoll Flinging Fix", Color.red, RagdollFlingingFix, new Action<bool>(OnRagdollFlingingFix));
+            category.CreateBoolElement("Ragdoll From Fall Damage", Color.yellow, RagdollFromFallDamage, new Action<bool>(OnRagdollFromFallDamage));
+            category.CreateBoolElement("Ragdoll Flinging Fix", Color.yellow, RagdollFlingingFix, new Action<bool>(OnRagdollFlingingFix));
 
 
         }
@@ -78,16 +81,19 @@ namespace Crumble
         {
             IsEnabled = value;
             MelonPrefEnabled.Value = value;
+            MelonPrefCategory.SaveToFile(false);
         }
         public static void OnRagdollFromFallDamage(bool value) 
         {
             RagdollFromFallDamage = value;
             MelonPrefRagdollFromFallDamage.Value = value;
+            MelonPrefCategory.SaveToFile(false);
         }
         public static void OnRagdollFlingingFix(bool value) 
         {
             RagdollFlingingFix = value;
             MelonPrefRagdollFlingingFix.Value = value;
+            MelonPrefCategory.SaveToFile(false);
         }
 
     }
