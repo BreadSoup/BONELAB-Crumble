@@ -1,0 +1,6 @@
+<Project>
+  <PropertyGroup>
+    <GameDir>D:\SteamLibrary\steamapps\common\BONELAB</GameDir>
+    <!-- Change the file path to your own BONELAB folder -->
+  </PropertyGroup>
+</Project>
