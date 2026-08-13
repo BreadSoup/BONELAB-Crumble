@@ -1,6 +1,6 @@
 ﻿using BoneLib;
 using MelonLoader;
-using SLZ.VRMK;
+using Il2CppSLZ.Marrow;
 using UnityEngine;
 
 namespace Crumble
@@ -24,7 +24,7 @@ namespace Crumble
 
         public override void OnInitializeMelon()
         {
-            Hooking.OnLevelInitialized += _ => { OnSceneAwake(); };
+            Hooking.OnLevelLoaded += _ => { OnSceneAwake(); };
             Preferences.MelonPreferencesCreator();
             Preferences.BoneMenuCreator();
         }
@@ -32,8 +32,8 @@ namespace Crumble
         private void OnSceneAwake()
         { 
             _sceneLoaded = true;
-            _feet = Player.physicsRig.feet.GetComponent<PhysGrounder>();
-            _previousRagdollState = Player.physicsRig._legsKinematic;
+            _feet = Player.PhysicsRig.feet.GetComponent<PhysGrounder>();
+            _previousRagdollState = Player.PhysicsRig._legsKinematic;
             _previousFrame = _feet.isGrounded;
         }
 
@@ -43,23 +43,23 @@ namespace Crumble
             {
                 if (_sceneLoaded)
                 {
-                    float currentHealthPercentage = (Player.rigManager.health.curr_Health / Player.rigManager.health.max_Health) * 100;
+                    float currentHealthPercentage = (Player.RigManager.health.curr_Health / Player.RigManager.health.max_Health) * 100;
                     // I dont think anything is getting past this check
-                    if (currentHealthPercentage >= RagdollHealthPercentage && !Player.physicsRig._legsKinematic && Player.rigManager.health.curr_Health > 0 && _hasRagdolledFromCrumble)
+                    if (currentHealthPercentage >= RagdollHealthPercentage && !Player.PhysicsRig._legsKinematic && Player.RigManager.health.curr_Health > 0 && _hasRagdolledFromCrumble)
                     {
-                        Player.physicsRig.UnRagdollRig();
+                        Player.PhysicsRig.UnRagdollRig();
                     }
 
-                    if (_hasRagdolledFromCrumble && Player.physicsRig._legsKinematic) //Just so I dont mess with other mods that ragdoll might not be needed but better to be safe
+                    if (_hasRagdolledFromCrumble && Player.PhysicsRig._legsKinematic) //Just so I dont mess with other mods that ragdoll might not be needed but better to be safe
                     {
                         _hasRagdolledFromCrumble = false;
                     }
 
-                    _currentRagdollState = Player.physicsRig._legsKinematic;
+                    _currentRagdollState = Player.PhysicsRig._legsKinematic;
                     if (!_previousRagdollState && _currentRagdollState && Preferences.RagdollFlingingFix)
                     {
-                            Vector3 teleport = Player.physicsRig.feet.transform.position + Add;
-                            Player.rigManager.Teleport(teleport);
+                            Vector3 teleport = Player.PhysicsRig.feet.transform.position + Add;
+                            Player.RigManager.Teleport(teleport);
                     }
 
                     _previousRagdollState = _currentRagdollState;
@@ -68,15 +68,15 @@ namespace Crumble
 
                     if (_currentFrame && !_previousFrame)
                     {
-                        if (Player.physicsRig.wholeBodyVelocity.y < -Threshold)
+                        if (Player.PhysicsRig.wholeBodyVelocity.y < -Threshold)
                         {
-                            float damage = Mathf.Abs(Player.physicsRig.wholeBodyVelocity.y + Threshold);
+                            float damage = Mathf.Abs(Player.PhysicsRig.wholeBodyVelocity.y + Threshold);
                             damage *= Markiplier; // I might be able to put this on the line above but I don't know the order of operations and I dont care enough to find out because this works
-                            Player.rigManager.health.TAKEDAMAGE(damage);
-                            float healthPercentage = (Player.rigManager.health.curr_Health / Player.rigManager.health.max_Health) * 100;
+                            Player.RigManager.health.TAKEDAMAGE(damage);
+                            float healthPercentage = (Player.RigManager.health.curr_Health / Player.RigManager.health.max_Health) * 100;
                             if (healthPercentage <= RagdollHealthPercentage && Preferences.RagdollFromFallDamage)
                             {
-                              Player.physicsRig.RagdollRig(); 
+                              Player.PhysicsRig.RagdollRig(); 
                               _hasRagdolledFromCrumble = true;
                             }
                         }

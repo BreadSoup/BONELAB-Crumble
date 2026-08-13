@@ -12,7 +12,7 @@ using Main = Crumble.Main;
 [assembly: AssemblyVersion(Main.Version)]
 [assembly: AssemblyFileVersion(Main.Version)]
 [assembly: MelonInfo(typeof(Main), Main.Name, Main.Version, Main.Author, Main.DownloadLink)]
-[assembly: MelonColor(ConsoleColor.White)]
+[assembly: MelonColor(255, 255, 255, 255)]
 
 // Create and Setup a MelonGame Attribute to mark a Melon as Universal or Compatible with specific Games.
 // If no MelonGame Attribute is found or any of the Values for any MelonGame Attribute on the Melon is null or empty it will be assumed the Melon is Universal.
